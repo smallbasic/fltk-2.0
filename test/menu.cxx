@@ -1,0 +1,153 @@
+#include <fltk/run.h>
+#include <fltk/Item.h>
+#include <fltk/ItemGroup.h>
+#include <fltk/Divider.h>
+#include <fltk/Window.h>
+#include <fltk/Box.h>
+#include <fltk/MenuBar.h>
+#include <fltk/PopupMenu.h>
+#include <fltk/InputBrowser.h>
+#include <fltk/Choice.h>
+#include <fltk/Button.h>
+#include <fltk/draw.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fltk/HorizontalSlider.h>
+#include <fltk/StringList.h>
+#include <fltk/ScreenInfo.h>
+#include <fltk/events.h>
+using namespace fltk;
+
+#define WIDTH 600
+#define HEIGHT 23
+
+void callback(Widget* w, void*) {
+  Menu* menu = (Menu*)w;
+  Widget* item = menu->item();
+  printf("Callback for %s, item is %s\n",
+	 menu->label() ? menu->label() : "menu bar",
+	 item->label() ? item->label() : "unnamed");
+  item->do_callback();
+}
+
+const char* const strings[] = {
+  "This","is","a","test","of","a","menu","defined","as a","StringList"
+};
+StringList thelist(strings, sizeof(strings)/sizeof(*strings));
+
+void build_hierarchy() {
+  ItemGroup* g = new ItemGroup("submenu&1");
+  new Item("Item &1");
+  new Item("Item &2");
+  new Item("Item &3");
+  new Item("Item &4");
+  g->end();
+  g = new ItemGroup("submenu&2");
+  (new Item("Item &1"))->labelsize(10);
+  (new Item("Item &2"))->labelsize(14);
+  (new Item("Item &3"))->labelsize(18);
+  (new Item("Item &4"))->labelsize(22);
+  //g->deactivate();
+  Group* g1 = new ItemGroup("&nested menu");
+  new Item("Item &1");
+  new Item("Item &2");
+  Group* g2 = new ItemGroup("deeper");
+  (new Item("Very low level items"))->deactivate();
+  (new Item("Are here on this menu"))->deactivate();
+  new Item("In this test");
+  new Item("Program");
+  g2->end();
+  g1->end();
+  g->end();
+}
+
+void quit_cb(Widget*, void*) {exit(0);}
+
+int main(int argc, char **argv) {
+  Window window(WIDTH,400);
+  window.begin();
+  MenuBar menubar(0,0,WIDTH,HEIGHT);
+  menubar.callback(callback);
+  menubar.begin();
+
+  ItemGroup file("&File");
+  Item* o = new Item("Quit");
+  o->shortcut(ALT+'q');
+  o->callback(quit_cb);
+  new Divider();
+  (new HorizontalSlider(0,0,100,30))->value(.3);
+  build_hierarchy();
+  file.end();
+  ItemGroup edit("&Edit");
+  (new Item("Undo"))->shortcut(ALT+'z');
+  (new Item("Cut"))->shortcut(ALT+'x');
+  (new Item("Copy"))->shortcut(ALT+'c');
+  (new Item("Paste"))->shortcut(ALT+'v');
+  build_hierarchy();
+  edit.end();
+  //edit.deactivate();
+  ItemGroup options("&Options");
+  o = new Item("Red"); o->type(Item::RADIO);
+  o = new Item("Green"); o->type(Item::RADIO);
+  o = new Item("Blue"); o->type(Item::RADIO);
+  o = new Item("Aqua"); o->type(Item::RADIO);
+  o = new Item("Toggle 1"); o->type(Item::TOGGLE);
+  o = new Item("Toggle 2"); o->type(Item::TOGGLE);
+  o = new Item("Toggle 3"); o->type(Item::TOGGLE);
+  o = new Item("Toggle 4"); o->type(Item::TOGGLE);
+  options.end();
+  new Divider();
+  Item item("&Toggle"); item.type(Item::TOGGLE);
+  Item but("&button");
+  menubar.end();
+  menubar.tooltip("This is a menu bar");
+
+  Widget box(0,HEIGHT,WIDTH,400-HEIGHT);
+  //box.color(WHITE);
+  box.box(fltk::DOWN_BOX);
+  box.tooltip("Press right button for a pop-up menu");
+
+  PopupMenu mb(0,25,WIDTH,400-HEIGHT, "popup");
+  mb.callback(callback);
+  mb.begin();
+  build_hierarchy();
+  mb.end();
+  mb.type(PopupMenu::POPUP3);
+
+  PopupMenu mb1(10,50,100,25,"&PopupMenu");
+  mb1.callback(callback);
+  mb1.begin();
+  build_hierarchy();
+  mb1.end();
+  mb1.tooltip("This is a menu button");
+
+  Choice ch(220,50,100,25,"&choice:");
+  ch.callback(callback);
+  ch.begin();
+  build_hierarchy();
+  ch.end();
+  ch.tooltip("This is a choice");
+
+  InputBrowser ib(410,50,100,25,"Input&Browser:");
+  ib.type(InputBrowser::INDENTED);
+  ib.callback(callback);
+  ib.begin();
+  build_hierarchy();
+  ib.end();
+  ib.tooltip("This is an InputBrowser");
+
+  Button button(100,100,100,30,"button");
+
+  window.resizable(box);
+  window.size_range(300,20);
+  window.end();
+  window.show(argc, argv);
+
+  const ScreenInfo& info = screenInfo();
+  printf("info x,y,w,h = %d, %d, %d, %d\n", info.x, info.y, info.w, info.h);
+  printf("info width, height, depth = %d, %d, %d\n", info.width, info.height, info.depth);
+  printf("info dpi %g %g\n", info.dpi_x, info.dpi_y);
+
+  return run();
+}

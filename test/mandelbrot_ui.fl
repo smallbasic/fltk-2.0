@@ -1,0 +1,73 @@
+# data file for the FLTK User Interface Designer (FLUID)
+version 2.0001 
+images_dir ./ 
+header_name {.h} 
+code_name {.cxx} 
+gridx 10 
+gridy 10 
+snap 3
+decl {\#include "mandelbrot.h"} {public
+} 
+
+decl {\#include <stdlib.h>} {} 
+
+class Drawing_Window {open
+} {
+  Function {make_window()} {open return_type void
+  } {
+    Fl_Window window {open
+      xywh {178 479 450 520} resizable
+      extra_code {o->size_range(220,220);} visible
+    } {
+      Fl_Box d {
+        user_data this user_data_type {void*}
+        xywh {20 80 410 430} box DOWN_BOX
+        class Drawing_Area
+      }
+      Fl_Input x_input {
+        label {x:}
+        callback {d->X = atof(o->value());;
+d->new_display();}
+        xywh {30 10 125 25}
+        extra_code {o->when(FL_WHEN_ENTER_KEY|FL_WHEN_RELEASE);}
+      }
+      Fl_Input y_input {
+        label {y:}
+        callback {d->Y = atof(o->value());
+d->new_display();}
+        xywh {175 10 125 25}
+        extra_code {o->when(FL_WHEN_ENTER_KEY|FL_WHEN_RELEASE);}
+      }
+      Fl_Input w_input {
+        label {w:}
+        callback {d->scale = atof(o->value());
+d->new_display();}
+        xywh {325 10 105 25}
+        extra_code {o->when(FL_WHEN_ENTER_KEY|FL_WHEN_RELEASE);}
+      }
+      Fl_Slider {} {
+        label {brightness:}
+        callback {d->brightness = int(o->value());
+d->new_display();} selected
+        xywh {80 38 160 20} type HORIZONTAL_NICE align 4 box FLAT_BOX step 1
+        extra_code {o->range(0,d->MAX_BRIGHTNESS);
+o->value(d->DEFAULT_BRIGHTNESS);}
+      }
+      Fl_Box {} {
+        label {left: click = zoom out, drag = zoom in
+right click: Julia set}
+        xywh {240 44 190 30} align 16 label_size 10
+      }
+      Fl_Slider {} {
+        label {iterations:}
+        callback {d->iterations = 1<<int(o->value());
+d->new_display();} selected
+        xywh {80 60 160 20} type HORIZONTAL_NICE align 4 box FLAT_BOX step 1
+        extra_code {o->range(1,d->MAX_ITERATIONS);
+o->value(d->DEFAULT_ITERATIONS);}
+      }
+    }
+  }
+  decl {void update_label();} {public
+  }
+} 

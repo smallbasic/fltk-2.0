@@ -1,0 +1,66 @@
+<html><head><link href="fltk.css" rel="stylesheet" type="text/css">
+<title>class Fl_Menu_Bar</title></head><body>
+<!-- NEW PAGE -->
+<h2>class Fl_Menu_Bar</h2>
+<hr>
+
+<H3>Class Hierarchy</H3>
+<PRE>
+<A href=Fl_Menu_.html#Fl_Menu_>Fl_Menu_</A>
+   |
+   +----<B>Fl_Menu_Bar</B>
+</PRE>
+<H3>Include Files</H3>
+<PRE>
+#include &lt;fltk/Fl_Menu_Bar.h&gt;
+</PRE>
+<H3>Description</H3>
+ This widget provides a standard menubar interface.  Usually you will 
+put this widget along the top edge of your window.  The height of the 
+widget should be 30 for the menu titles to draw correctly with the 
+default font. 
+
+<p>Each child widget (typically an <a
+href=Fl_Item_Group.html><tt>Fl_Item_Group</tt></a> puts a single item
+into the menu bar. If the child is a group, the pressing on it will
+bring up a pull-down menu of the children of it. Sub-sub menus and
+lower pop up to the right of the submenus.</p>
+
+<P ALIGN=CENTER><IMG src=menubar.gif></P>
+
+<p>If a child is not a group (for instance if it is a plain <a
+href=Fl_Item.html><tt>Fl_Item</tt></a>) then clicking on it will pick
+it as though it was a menu item. This allows you to put "buttons" into
+the menubar and thus the menubar can act like a "toolbar" in other
+toolkits, or you can mix the "tools" with "menus" into the same bar.</p>
+
+<P>When the user picks an item off the menu, the item's callback is 
+done with the menubar as the <TT>Fl_Widget*</TT> argument.  If the item 
+does not have a callback the menubar's callback is done instead. </P>
+<P>Submenus will also pop up in response to shortcuts indicated by 
+putting a '&amp;' character in the name field of the menu item. If you put a 
+'&amp;' character in a top-level &quot;button&quot; then the shortcut picks it.  The 
+'&amp;' character in submenus is ignored until the menu is popped up. </P>
+<P>Typing the <TT>shortcut()</TT> of any of the menu items will cause 
+callbacks exactly the same as when you pick the item with the mouse. </P>
+<H3>Methods</H3>
+<UL>
+<LI><A href=#Fl_Menu_Bar.Fl_Menu_Bar>Fl_Menu_Bar</A></LI>
+<LI><A href=#Fl_Menu_Bar.~Fl_Menu_Bar>~Fl_Menu_Bar</A></LI>
+</UL>
+<H4><A name=Fl_Menu_Bar.Fl_Menu_Bar>Fl_Menu_Bar::Fl_Menu_Bar(int x, int 
+y, int w, int h, const char *label = 0)</A></H4>
+ Creates a new <TT>Fl_Menu_Bar</TT> widget using the given position, 
+size, and label string. The default boxtype is <TT>FL_UP_BOX</TT>. 
+<P>The constructor sets <TT>menu()</TT> to <TT>NULL</TT>.  See <A href=Fl_Menu_.html#Fl_Menu_>
+<TT>Fl_Menu_</TT></A> for the methods to set or change the menu. </P>
+<P><TT>labelsize()</TT>, <TT>labelfont()</TT>, and <TT>labelcolor()</TT>
+ are used to control how the menubar items are drawn.  They are 
+initialized from the <TT>Fl_Menu</TT> static variables, but you can 
+change them if desired. </P>
+<P><TT>label()</TT> is ignored unless you change <TT>align()</TT> to 
+put it outside the menubar. </P>
+<H4><A name=Fl_Menu_Bar.~Fl_Menu_Bar>virtual Fl_Menu_Bar::~Fl_Menu_Bar()</A>
+</H4>
+ The destructor removes the <TT>Fl_Menu_Bar</TT> widget and all of its 
+menu items. </BODY></HTML>

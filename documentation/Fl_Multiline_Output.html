@@ -1,0 +1,53 @@
+<html><head><link href="fltk.css" rel="stylesheet" type="text/css">
+<title>class Fl_Multiline_Output</title></head><body>
+<!-- NEW PAGE -->
+<h2>class Fl_Multiline_Output</h2>
+<hr>
+
+<h3>Class Hierarchy</h3>
+
+<pre><a href=Fl_Output.html>Fl_Output</a>
+   |
+   +----<b>Fl_Multiline_Output</b>
+</pre>
+
+<h3>Include Files</h3>
+
+<pre>
+#include &lt;fltk/Fl_Multiline_Output.h&gt;
+</pre>
+
+<h3>Description</h3>
+
+This widget is a subclass of Fl_Output that displays multiple lines of
+text. It also displays Tab (<tt>'\t'</tt>) characters
+as whitespace to the next column rather than as <tt>^I</tt>.
+
+<p>Long lines of text will have to be horizontally scrolled, currently
+the only way to do this is to drag the mouse or move the cursor. You
+may want <a href="Fl_Wordwrap_Output.html">Fl_Wordwrap_Output</a> instead.
+
+<p>Because there are no scrollbars, this is probably only good for
+small bits of text, 10 lines at most. More powerful editing is
+available from the <a href="Fl_Text_Editor.html">Fl_Text_Editor</a>
+widget.
+
+<h3>Methods</h3>
+
+<ul>
+<li><a href="#Fl_Multiline_Output">Fl_Multiline_Output</a></li>
+<li><a href="#~Fl_Multiline_Output">~Fl_Multiline_Output</a></li>
+</ul>
+
+<a name=Fl_Multiline_Output><h4>Fl_Multiline_Output::Fl_Multiline_Output(int x, int y, int w, int h, const char *label = 0)</h4></a>
+
+Creates a new <tt>Fl_Multiline_Output</tt> widget using the given 
+position, size, and label string.
+
+<a name=~Fl_Multiline_Output><h4>virtual Fl_Multiline_Output::~Fl_Multiline_Output()</h4></a>
+
+Destroys the widget and any value associated with it.
+
+</body></html>
+
+ Destroys the widget and any value associated with it. </BODY></HTML>

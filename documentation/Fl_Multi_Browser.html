@@ -1,0 +1,94 @@
+<html><head><link href="fltk.css" rel="stylesheet" type="text/css">
+<title>class Fl_Multi_Browser</title></head><body>
+<!-- NEW PAGE -->
+<h2>class Fl_Multi_Browser</h2>
+<hr>
+
+<h3>Class Hierarchy</h3>
+
+<pre>
+<a href=Fl_Browser.html#Fl_Browser>Fl_Browser</a>
+   |
+   +----<B>Fl_Multi_Browser</B>
+</pre>
+
+<h3>Include Files</h3>
+
+<pre>
+#include &lt;fltk/Fl_Multi_Browser.h&gt;
+</pre>
+
+<h3>Description</h3>
+
+The <TT>Fl_Multi_Browser</TT> class is a subclass of
+<TT>Fl_Browser</TT> which lets the user select any set of the
+lines. Clicking on an item selects only that one. Ctrl+click toggles
+items on/off. Shift+drag (or shift+arrows) will extend selections.
+Normally the callback is done when any item changes it's state, but
+you can change this with <TT>when()</TT>.
+
+<p>See <A href=Fl_Browser.html#Fl_Browser><TT>Fl_Browser</TT></A> for
+methods to control the display and "current item", and <a
+href=Fl_Menu_.html><tt>Fl_Menu_</tt></a> for methods to add and remove
+lines from the browser. </P>
+
+<p>The methods on <A href=Fl_Browser.html><TT>Fl_Browser</TT></A> for
+controlling the "value" control item with the keyboard focus in a
+multi-browser. You must use the "select" methods described here to
+change what items are turned on.
+
+<h3>Methods</h3>
+
+<ul>
+<li><a href="#Fl_Multi_Browser">Fl_Multi_Browser</a></li>
+<li><a href="#set_item_selected">set_item_selected</a></li>
+<li><a href="#select_only_this">select_only_this</a></li>
+<li><a href="#deselect">deselect</a></li>
+<li><a href="#select">select</a></li>
+<li><a href="#selected">selected</a></li>
+</ul>
+
+<a name=Fl_Multi_Browser><h4>Fl_Multi_Browser::Fl_Multi_Browser(int x, int y, int w, int h, const char *label = 0)</h4></a>
+
+Creates a new, empty <tt>Fl_Multi_Browser</tt>.
+
+<a name=set_item_selected><h4>bool set_item_selected(bool value = true, int do_callback = 0);</h4></a>
+
+Turn the <tt>FL_VALUE</tt> flag on or off in the current item (use <a
+href="Fl_Browser.html#goto_index"><tt>goto_index()</tt></a> to set the
+current item before calling this).
+
+<p>If <i>do_callback</i> has some bits that are also in <a
+href=Fl_Widget.html#when><tt>when()</tt></a> then the callback is done
+for each item that changes selected state.
+
+<a name=select_only_this><h4>bool select_only_this(int do_callback = 0);</h4></a>
+
+Make the current item be the only selected one.  If <i>do_callback</i>
+has some bits that are also in <a
+href=Fl_Widget.html#when><tt>when()</tt></a> then the callback is done
+for each item that changes selected state.
+
+<p>If you did <tt>goto_index(-1)</tt> before this it does <a
+href=#deselect><tt>deselect()</tt></a>.
+
+<a name=deselect><h4>bool deselect(int do_callback = 0);</h4></a>
+
+Make no items be selected.  If <i>do_callback</i>
+has some bits that are also in <a
+href=Fl_Widget.html#when><tt>when()</tt></a> then the callback is done
+for each item that changes selected state.
+
+<a name=select><h4>bool select(int line, bool value = true);</h4></a>
+
+Same as <tt><a href=#goto_index>goto_index(line)</a>,<a
+href=#set_focus>set_item_selected(value)</a>;</tt>, to change the selected
+state of an item in a non-hierarchial Fl_Multi_Browser. If <i>line</i>
+is negative nothing is selected.
+
+<a name=selected><h4>bool selected(int line);</h4></a>
+
+Returns the value of the <tt><a
+href=#goto_index>goto_index(line)</a></tt> item.
+
+</body></html>
