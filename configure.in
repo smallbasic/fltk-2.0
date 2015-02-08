@@ -712,7 +712,7 @@ case $uname in
 	      X11/Xft/Xft.h,
 	      AC_CHECK_LIB(Xft, XftDrawCreate,
 	      AC_DEFINE(USE_XFT)
-	      LIBS="-lXft $LIBS")
+	      LIBS="-lXft -lXrender -lfontconfig -lfreetype $LIBS")
 	    )
 	  fi
 	fi
